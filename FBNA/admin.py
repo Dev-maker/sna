@@ -1,6 +1,6 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
-from .models import Source , Subject , Articl , User , commant
+from .models import Source , Subject , Articl , User , comment
 @admin.register(Subject)
 class SubjectAdmin(ImportExportModelAdmin):
     pass
@@ -9,7 +9,7 @@ class SubjectAdmin(ImportExportModelAdmin):
 class UserAdmin(ImportExportModelAdmin):
     pass
 
-@admin.register(commant)
+@admin.register(comment)
 class commantAdmin(ImportExportModelAdmin):
     pass
 

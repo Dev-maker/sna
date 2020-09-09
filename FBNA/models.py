@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Source(models.Model):
     name = models.CharField(max_length=100)
     type = [
@@ -7,8 +8,10 @@ class Source(models.Model):
         ('TW', 'Twitter'),
         ('WB', 'WEB'),
     ]
+
     def __str__(self):
         return self.name
+
 
 class Subject(models.Model):
     subject_label = models.CharField(max_length=100)
@@ -17,15 +20,12 @@ class Subject(models.Model):
         return self.subject_label
 
 
-
 class Articl(models.Model):
-
-    titel= models.CharField(max_length=100)
-    link =models.URLField(max_length=200)
-    date =models.DateTimeField()
+    titel = models.CharField(max_length=100)
+    link = models.URLField(max_length=200)
+    date = models.DateTimeField()
     source = models.ForeignKey(Source, on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-
+    subject = models.ManyToManyField(Subject)
     def __str__(self):
         return self.titel
 
@@ -40,8 +40,9 @@ class User(models.Model):
     def __str__(self):
         return self.name
 
-class commant(models.Model):
+
+class comment(models.Model):
     date = models.DateTimeField()
-    commant = models.CharField(max_length=300)
+    comment = models.CharField(max_length=300)
     articl = models.ForeignKey(Articl, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
