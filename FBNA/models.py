@@ -20,21 +20,21 @@ class Subject(models.Model):
         return self.subject_label
 
 
-class Articl(models.Model):
-    titel = models.CharField(max_length=100)
+class Article(models.Model):
+    title = models.CharField(max_length=100)
     link = models.URLField(max_length=200)
     date = models.DateTimeField()
     source = models.ForeignKey(Source, on_delete=models.CASCADE)
     subject = models.ManyToManyField(Subject)
     def __str__(self):
-        return self.titel
+        return self.title
 
 
-class User(models.Model):
+class Profile(models.Model):
     name = models.CharField(max_length=100)
     facebook = models.URLField(max_length=200)
-    email = models.EmailField()
-    phone = models.CharField(max_length=100)
+    email = models.EmailField(blank=True)
+    phone = models.CharField(max_length=12,blank=True)
     location = models.CharField(max_length=100)
 
     def __str__(self):
@@ -42,7 +42,9 @@ class User(models.Model):
 
 
 class comment(models.Model):
+
+    comment = models.TextField(max_length=300)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     date = models.DateTimeField()
-    comment = models.CharField(max_length=300)
-    articl = models.ForeignKey(Articl, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
